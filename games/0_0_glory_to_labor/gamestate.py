@@ -1,7 +1,8 @@
 from game_override import GameStateOverride
 from src.calculations.lines import Lines
 from src.calculations.statistics import get_random_outcome
-from src.events.events import reveal_event
+from src.events.events import update_freespin_event, reveal_event, set_total_event, set_win_event
+from game_events import new_sticky_event
 
 class GameState(GameStateOverride):
     """Handles game logic and events for a single simulation number/game-round."""
@@ -29,6 +30,7 @@ class GameState(GameStateOverride):
         self.reset_fs_spin()
         self.sticky_wilds = []
 
+        criteria = self.criteria
         while self.fs < self.tot_fs and not self.wincap_triggered:
             self.update_freespin()
             self.draw_board(emit_event=False)
@@ -41,6 +43,14 @@ class GameState(GameStateOverride):
             self.update_board_with_new_sticky_wilds(new_sticky_wilds)
             reveal_event(self)
             self.update_board_with_existing_sticky_wilds()
+
+            if len(new_sticky_wilds) > 0:
+                new_sticky_wilds_with_mults = [
+                    {"reel": x["reel"], "row": x["row"], "multiplier": getattr(self.board[x["reel"]][x["row"]], "multiplier", None)}
+                    for x in new_sticky_wilds
+                ]
+                new_sticky_event(self, new_sticky_wilds_with_mults)
+                update_freespin_event(self)
 
             self.evaluate_lines_board()
 

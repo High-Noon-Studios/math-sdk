@@ -1,6 +1,7 @@
 from game_calculations import GameCalculations
 from src.calculations.lines import Lines
 import random
+from src.calculations.statistics import get_random_outcome
 
 class GameExecutables(GameCalculations):
     def evaluate_lines_board(self):
@@ -20,29 +21,43 @@ class GameExecutables(GameCalculations):
     def update_board_with_new_sticky_wilds(self, wilds: list[dict]) -> None:
         for sticky_wild in wilds:
             self.board[sticky_wild["reel"]][sticky_wild["row"]] = self.create_symbol("W")
+            self.board[sticky_wild["reel"]][sticky_wild["row"]].assign_attribute({"multiplier": sticky_wild["multiplier"]})
 
     def update_board_with_existing_sticky_wilds(self) -> None:
         for sticky_wild in self.sticky_wilds:
             self.board[sticky_wild["reel"]][sticky_wild["row"]] = self.create_symbol("W")
+            self.board[sticky_wild["reel"]][sticky_wild["row"]].assign_attribute({"multiplier": sticky_wild["multiplier"]})
 
     def generate_new_sticky_wilds(self, max_num_new_wilds: int):
         new_sticky_wilds = []
+
         for _ in range(max_num_new_wilds):
-            available_reels = [
-                reel_idx
-                for reel_idx, reel in enumerate(self.board)
-                if not all(sym.name == "W" for sym in reel)
-            ]
+            all_sticky_wilds = self.sticky_wilds + new_sticky_wilds
+            # wilds can only appear on reels 2, 3, and 4
+            candidate_reel_indexes = [1, 2, 3]
+            # Determine which reels (2, 3, 4) have at least one available row (not already occupied by a sticky wild)
+            available_reels = []
+            for reel_idx in candidate_reel_indexes:
+                # Get all rows for this reel
+                total_rows = self.config.num_rows[reel_idx]
+                # Find which rows are already occupied by sticky wilds
+                occupied_rows = {w["row"] for w in all_sticky_wilds if w["reel"] == reel_idx}
+                # If there is at least one unoccupied row, this reel is available
+                if len(occupied_rows) < total_rows:
+                    available_reels.append(reel_idx)
+
             if len(available_reels) > 0:
                 chosen_reel = random.choice(available_reels)
                 available_rows = [
                     row_idx
                     for row_idx in range(self.config.num_rows[chosen_reel])
-                    if self.board[chosen_reel][row_idx].name != "W"
+                    if not any(w["reel"] == chosen_reel and w["row"] == row_idx for w in all_sticky_wilds)
                 ]
                 chosen_row = random.choice(available_rows)
 
-                sticky_wild_details = {"reel": chosen_reel, "row": chosen_row}
+                sticky_wild_details = {"reel": chosen_reel, "row": chosen_row, "multiplier": get_random_outcome(
+                    self.get_current_distribution_conditions()["mult_values"][self.gametype]
+                )}
                 new_sticky_wilds.append(sticky_wild_details)
 
         return new_sticky_wilds
