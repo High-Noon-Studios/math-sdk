@@ -16,7 +16,7 @@ class GameExecutables(GameCalculations):
             for symbol in reel:
                 if symbol.name == "W":
                     possible_values = ["L1", "L2", "L3", "L4", "L5", "H1", "H2", "H3", "H4"]
-                    symbol.name = random.choice(possible_values)
+                    symbol = self.create_symbol(symbol.name)
 
     def update_board_with_new_sticky_wilds(self, wilds: list[dict]) -> None:
         for sticky_wild in wilds:
