@@ -4,8 +4,8 @@ from src.calculations.statistics import get_random_outcome
 
 class GameStateOverride(GameExecutables):
     """
-    This class is is used to override or extend universal state.py functions.
-    e.g: A specific game may have custom book properties to reset
+    Glory to Labor specific game state overrides.
+    Implements wild multiplier logic according to game rules.
     """
 
     def reset_book(self):
@@ -17,12 +17,10 @@ class GameStateOverride(GameExecutables):
         }
 
     def assign_mult_property(self, symbol) -> dict:
-        """Assign multiplier value to Wild symbol in freegame."""
-        multiplier_value = 1
-        if self.gametype == self.config.freegame_type:
-            multiplier_value = get_random_outcome(
-                self.get_current_distribution_conditions()["mult_values"][self.gametype]
-            )
+        multiplier_value = get_random_outcome(
+            self.get_current_distribution_conditions()["mult_values"][self.gametype]
+        )
+
         symbol.assign_attribute({"multiplier": multiplier_value})
 
     def check_repeat(self):

@@ -19,7 +19,6 @@ if __name__ == "__main__":
 
     num_sim_args = {
         "base": int(1000),
-        # "bonus": int(1000),  # Skip bonus mode for now
     }
 
     run_conditions = {

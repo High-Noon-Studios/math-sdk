@@ -2,10 +2,16 @@
 
 Glory to Labor is a 5-reel, 3-row lines game with multiplier wilds and sticky free spins.
 
+## Game Statistics
+
+**RTP**: 96.51%
+**Win Cap**: 6,750x bet
+**Volatility**: Medium-High (enhanced by bonus buy feature)
+
 ## Base Game
 
 **Reels**: 5 reels, 3 rows
-**Paylines**: Traditional lines-based wins
+**Paylines**: 20 fixed paylines
 
 **Symbol Distribution**:
 - **Scatter symbols**: Appear only on reels 1, 3, and 5
@@ -44,6 +50,7 @@ Glory to Labor is a 5-reel, 3-row lines game with multiplier wilds and sticky fr
 - **Multiplier Values**: 1x, 2x, 3x, 4x, or 5x on wild symbols
 - **Additive Rules**: Multiple wilds on same payline still add multipliers together
 - **Example**: 5x wild + 4x wild on same payline = 9x total multiplier
+- **Cost**: 100x bet
 
 **Super Bonus Buy Benefits**:
 - Same sticky wild mechanics as regular free game
@@ -53,14 +60,14 @@ Glory to Labor is a 5-reel, 3-row lines game with multiplier wilds and sticky fr
 
 ## Technical Notes
 
-**Wild Priority**: 
+**Wild Priority**:
 - Wilds substitute optimally to create the highest paying combination
 - Multiplier calculation applies only to wins that include wild symbols
 - Multiple wilds on same payline: multipliers are summed (not multiplied)
 
 **Reel Restrictions**:
 - Base Game: Scatters on reels 1, 3, 5 only
-- Free Game: Scatters on reels 1, 5 only  
+- Free Game: Scatters on reels 1, 5 only
 - Both modes: Wilds on reels 2, 3, 4 only
 
 **Game Modes Summary**:
@@ -68,4 +75,38 @@ Glory to Labor is a 5-reel, 3-row lines game with multiplier wilds and sticky fr
 - **Free Game**: Sticky wilds (1x-3x), scatters on reels 1,5 only
 - **Super Bonus Buy**: Sticky wilds (1x-5x) with increased frequency, same scatter rules as free game
 
-This configuration provides balanced gameplay with strategic wild placement and sticky mechanics that can build substantial wins over multiple free spins, with the super bonus buy offering enhanced volatility and win potential.
+## Payline Configuration
+
+Glory to Labor uses 20 fixed paylines (indexed positions: 0=top row, 1=middle row, 2=bottom row):
+
+```
+Line 1:  [0, 0, 0, 0, 0]  - Top row across
+Line 2:  [1, 1, 1, 1, 1]  - Middle row across
+Line 3:  [2, 2, 2, 2, 2]  - Bottom row across
+Line 4:  [0, 1, 2, 1, 0]  - V-shape from top
+Line 5:  [2, 1, 0, 1, 2]  - ^-shape from bottom
+Line 6:  [1, 0, 0, 0, 1]  - Middle to top center
+Line 7:  [1, 2, 2, 2, 1]  - Middle to bottom center
+Line 8:  [0, 0, 1, 2, 2]  - Top diagonal down
+Line 9:  [2, 2, 1, 0, 0]  - Bottom diagonal up
+Line 10: [1, 2, 1, 0, 1]  - Middle zigzag 1
+Line 11: [1, 0, 1, 2, 1]  - Middle zigzag 2
+Line 12: [0, 1, 1, 1, 0]  - Top V-shape
+Line 13: [2, 1, 1, 1, 2]  - Bottom ^-shape
+Line 14: [0, 1, 0, 1, 0]  - Top-middle alternating
+Line 15: [2, 1, 2, 1, 2]  - Bottom-middle alternating
+Line 16: [1, 1, 0, 1, 1]  - Middle dip up
+Line 17: [1, 1, 2, 1, 1]  - Middle dip down
+Line 18: [0, 0, 2, 0, 0]  - Top with bottom center
+Line 19: [2, 2, 0, 2, 2]  - Bottom with top center
+Line 20: [0, 2, 2, 2, 0]  - Top to bottom sweep
+```
+
+## Paytable Summary
+
+**Wild (W)**: 7.5x (5-of-a-kind), 1.5x (4), 0.5x (3)
+**High Premium (H1)**: 7.5x (5), 1.5x (4), 0.5x (3)
+**High Premium (H2-H4)**: Decreasing pays from 5.0x down to 2.0x (5-of-a-kind)
+**Low Symbols (L1-L5)**: Range from 0.5x down to 0.25x (5-of-a-kind)
+
+This configuration provides balanced gameplay with strategic wild placement and sticky mechanics that can build substantial wins over multiple free spins, with the super bonus buy offering enhanced volatility and win potential up to the 6,750x win cap.
