@@ -22,48 +22,47 @@ class GameConfig(Config):
         self.working_name = "Glory to Labor!"
         self.wincap = 6750.0
         self.win_type = "lines"
-        self.rtp = 0.9651
+        self.rtp = 0.965
         self.construct_paths()
 
-        # Game Dimensions
         self.num_reels = 5
         self.num_rows = [3] * self.num_reels
         self.paytable = {
-            (5, "H1"): 15,
-            (4, "H1"): 3,
-            (3, "H1"): 1,
+            (5, "H1"): 8,
+            (4, "H1"): 2,
+            (3, "H1"): 0.8,
 
-            (5, "H2"): 15,
-            (4, "H2"): 2.0,
-            (3, "H2"): 0.7,
+            (5, "H2"): 6,
+            (4, "H2"): 1.5,
+            (3, "H2"): 0.6,
 
-            (5, "H3"): 6.0,
-            (4, "H3"): 1.2,
-            (3, "H3"): 0.5,
+            (5, "H3"): 4,
+            (4, "H3"): 1.0,
+            (3, "H3"): 0.4,
 
             (5, "H4"): 4.0,
             (4, "H4"): 0.8,
             (3, "H4"): 0.4,
 
-            (5, "L1"): 1,
-            (4, "L1"): 0.20,
-            (3, "L1"): 0.1,
+            (5, "L1"): 1.2,
+            (4, "L1"): 0.4,
+            (3, "L1"): 0.3,
 
             (5, "L2"): 1,
-            (4, "L2"): 0.20,
-            (3, "L2"): 0.1,
+            (4, "L2"): 0.7,
+            (3, "L2"): 0.3,
 
             (5, "L3"): 0.5,
-            (4, "L3"): 0.1,
-            (3, "L3"): 0.04,
+            (4, "L3"): 0.3,
+            (3, "L3"): 0.1,
 
             (5, "L4"): 0.5,
-            (4, "L4"): 0.1,
-            (3, "L4"): 0.04,
+            (4, "L4"): 0.2,
+            (3, "L4"): 0.1,
 
             (5, "L5"): 0.5,
-            (4, "L5"): 0.1,
-            (3, "L5"): 0.04,
+            (4, "L5"): 0.2,
+            (3, "L5"): 0.1,
         }
 
         self.paylines = {
@@ -108,11 +107,8 @@ class GameConfig(Config):
         reels = {
             "BR0": "BR0.csv",
             "FR0": "FR0.csv",
-            "FR0_BOOST": "FR0_BOOST.csv",
             "WCAP": "WCAP.csv"
         }
-
-        self.freespin_boost_type = "freespin_boost"
 
         self.reels = {}
         for r, f in reels.items():
@@ -121,21 +117,21 @@ class GameConfig(Config):
 
         self.padding_reels[self.basegame_type] = self.reels["BR0"]
         self.padding_reels[self.freegame_type] = self.reels["FR0"]
-        # self.padding_reels[self.freespin_boost_type] = self.reels["FR0_BOOST"]
 
         mult_values_default = {
-            self.basegame_type: {1: 50, 2: 30, 3: 20},
-            self.freegame_type: {2: 35, 3: 25},
-        }
-        mult_values_freespin_boost = {
-            self.freegame_type: {2: 25, 3: 25, 4: 20, 5: 10},
+            self.basegame_type: {1: 120, 2: 30, 3: 20},
+            self.freegame_type: {1: 100, 2: 35, 3: 25},
         }
         mult_values_wcap = {
             self.basegame_type: mult_values_default[self.basegame_type],
             self.freegame_type: {3: 1},
         }
+        mult_values_boost = {
+            self.basegame_type: mult_values_default[self.basegame_type],
+            self.freegame_type: {3: 1},
+        }
 
-        landing_wilds_default = {0: 100, 1: 20, 2: 10, 3: 1}
+        landing_wilds_default = {0: 200, 1: 20, 2: 10, 3: 1}
         landing_wilds_wcap = {1: 1, 2: 1, 3: 1}
 
         self.bet_modes = [
@@ -170,7 +166,7 @@ class GameConfig(Config):
                         conditions={
                             "reel_weights": {
                                 self.basegame_type: {"BR0": 1},
-                                self.freegame_type: {"FR0": 9, "WCAP": 1},
+                                self.freegame_type: {"FR0": 49, "WCAP": 1},
                             },
                             "scatter_triggers": {3: 1},
                             "mult_values": mult_values_default,
@@ -202,57 +198,46 @@ class GameConfig(Config):
                     ),
                 ],
             ),
-            # BetMode(
-            #     name="freespin_boost",
-            #     cost=100.0,
-            #     rtp=self.rtp,
-            #     max_win=self.wincap,
-            #     auto_close_disabled=False,
-            #     is_feature=False,
-            #     is_buybonus=True,
-            #     distributions=[
-            #         Distribution(
-            #             criteria="wincap",
-            #             quota=0.01,  # Higher chance for max wins in bonus buy
-            #             win_criteria=self.wincap,
-            #             conditions={
-            #                 "reel_weights": {
-            #                     self.basegame_type: {"BR0": 1},
-            #                     # Higher wincap weight
-            #                     self.freegame_type: {"FR0": 1, "WCAP": 8},
-            #                 },
-            #                 "mult_values": {
-            #                     # 1x, 2x, 3x wild multipliers
-            #                     self.basegame_type: {1: 50, 2: 30, 3: 20},
-            #                     # 1x-5x enhanced sticky wilds
-            #                     self.freegame_type: {1: 25, 2: 25, 3: 25, 4: 15, 5: 10},
-            #                 },
-            #                 # Start with freespins
-            #                 "scatter_triggers": {3: 40, 4: 40, 5: 20},
-            #                 "force_wincap": True,
-            #                 "force_freegame": True,
-            #             },
-            #         ),
-            #         Distribution(
-            #             criteria="freegame",
-            #             quota=0.99,  # 99% guaranteed freespin entry
-            #             conditions={
-            #                 "reel_weights": {
-            #                     self.basegame_type: {"BR0": 1},
-            #                     self.freegame_type: {"FR0": 1},
-            #                 },
-            #                 # Enhanced scatter distribution
-            #                 "scatter_triggers": {3: 60, 4: 30, 5: 10},
-            #                 "mult_values": {
-            #                     # 1x, 2x, 3x wild multipliers
-            #                     self.basegame_type: {1: 50, 2: 30, 3: 20},
-            #                     # Enhanced 1x-5x sticky wilds
-            #                     self.freegame_type: {1: 20, 2: 25, 3: 25, 4: 20, 5: 10},
-            #                 },
-            #                 "force_wincap": False,
-            #                 "force_freegame": True,
-            #             },
-            #         ),
-            #     ],
-            # ),
+            BetMode(
+                name="bonus",
+                cost=20.0,
+                rtp=self.rtp,
+                max_win=self.wincap,
+                auto_close_disabled=False,
+                is_feature=False,
+                is_buybonus=True,
+                distributions=[
+                    Distribution(
+                        criteria="wincap",
+                        quota=0.001,
+                        win_criteria=self.wincap,
+                        conditions={
+                            "reel_weights": {
+                                self.basegame_type: {"BR0": 1},
+                                self.freegame_type: {"WCAP": 1},
+                            },
+                            "scatter_triggers": {3: 1},
+                            "mult_values": mult_values_wcap,
+                            "landing_wilds": landing_wilds_wcap,
+                            "force_wincap": True,
+                            "force_freegame": True,
+                        },
+                    ),
+                    Distribution(
+                        criteria="freegame",
+                        quota=0.999,
+                        conditions={
+                            "reel_weights": {
+                                self.basegame_type: {"BR0": 1},
+                                self.freegame_type: {"FR0": 49, "WCAP": 1},
+                            },
+                            "scatter_triggers": {3: 1},
+                            "mult_values": mult_values_default,
+                            "landing_wilds": landing_wilds_default,
+                            "force_wincap": False,
+                            "force_freegame": True,
+                        },
+                    ),
+                ],
+            ),
         ]

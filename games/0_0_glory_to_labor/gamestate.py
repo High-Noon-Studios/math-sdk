@@ -37,6 +37,8 @@ class GameState(GameStateOverride):
             self.replace_wilds_on_board_with_normal_symbols()
 
             max_num_new_wilds = get_random_outcome(self.get_current_distribution_conditions()["landing_wilds"])
+            if self.gametype == 'bonus' and self.fs == 1:
+                max_num_new_wilds = 3
             new_sticky_wilds = self.generate_new_sticky_wilds(max_num_new_wilds)
             self.sticky_wilds.extend(new_sticky_wilds)
 

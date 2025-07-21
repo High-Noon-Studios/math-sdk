@@ -9,19 +9,17 @@ from optimization_program.optimization_config import (
 
 
 class OptimizationSetup:
-    """"""
-
     def __init__(self, game_config):
         self.game_config = game_config
         self.game_config.opt_params = {
             "base": {
                 "conditions": {
-                    "wincap": ConstructConditions(rtp=0.01, av_win=5000, search_conditions=5000).return_dict(),
+                    "wincap": ConstructConditions(rtp=0.01, av_win=6750, search_conditions=6750).return_dict(),
                     "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
                     "freegame": ConstructConditions(
-                        rtp=0.37, hr=200, search_conditions={"symbol": "scatter"}
+                        rtp=0.25, hr=150, search_conditions={"symbol": "scatter"}
                     ).return_dict(),
-                    "basegame": ConstructConditions(hr=3.5, rtp=0.59).return_dict(),
+                    "basegame": ConstructConditions(hr=5.0, rtp=0.705).return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
@@ -55,8 +53,8 @@ class OptimizationSetup:
             },
             "bonus": {
                 "conditions": {
-                    "wincap": ConstructConditions(rtp=0.01, av_win=5000, search_conditions=5000).return_dict(),
-                    "freegame": ConstructConditions(rtp=0.96, hr="x").return_dict(),
+                    "wincap": ConstructConditions(rtp=0.01, av_win=6750, search_conditions=6750).return_dict(),
+                    "freegame": ConstructConditions(rtp=0.955, hr="x").return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [

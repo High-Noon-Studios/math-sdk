@@ -14,19 +14,19 @@ if __name__ == "__main__":
     num_threads = 10
     rust_threads = 20
     batching_size = 5000
-    compression = False
+    compression = True
     profiling = False
 
     num_sim_args = {
         "base": int(1000),
-        # "bonus": int(1000),  # Skip bonus mode for now
+        "bonus": int(1000),
     }
 
     run_conditions = {
         "run_sims": True,
-        "run_optimization": False,
-        "run_analysis": False,
-        "run_format_checks": False,
+        "run_optimization": True,
+        "run_analysis": True,
+        "run_format_checks": True,
     }
     target_modes = list(num_sim_args.keys())
 
