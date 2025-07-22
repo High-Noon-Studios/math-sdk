@@ -17,9 +17,9 @@ class OptimizationSetup:
                     "wincap": ConstructConditions(rtp=0.01, av_win=6750, search_conditions=6750).return_dict(),
                     "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
                     "freegame": ConstructConditions(
-                        rtp=0.25, hr=150, search_conditions={"symbol": "scatter"}
+                        rtp=0.705, hr=150, search_conditions={"symbol": "scatter"}
                     ).return_dict(),
-                    "basegame": ConstructConditions(hr=5.0, rtp=0.705).return_dict(),
+                    "basegame": ConstructConditions(hr=5.0, rtp=0.25).return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
@@ -51,7 +51,109 @@ class OptimizationSetup:
                     score_type="rtp",
                 ).return_dict(),
             },
-            "bonus": {
+            "bonus_2x": {
+                "conditions": {
+                    "wincap": ConstructConditions(rtp=0.01, av_win=6750, search_conditions=6750).return_dict(),
+                    "freegame": ConstructConditions(rtp=0.955, hr="x").return_dict(),
+                },
+                "scaling": ConstructScaling(
+                    [
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 1.2,
+                            "win_range": (1, 20),
+                            "probability": 1.0,
+                        },
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 0.5,
+                            "win_range": (20, 50),
+                            "probability": 1.0,
+                        },
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 1.8,
+                            "win_range": (50, 100),
+                            "probability": 1.0,
+                        },
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 0.8,
+                            "win_range": (1000, 2000),
+                            "probability": 1.0,
+                        },
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 1.2,
+                            "win_range": (3000, 4000),
+                            "probability": 1.0,
+                        },
+                    ]
+                ).return_dict(),
+                "parameters": ConstructParameters(
+                    num_show=5000,
+                    num_per_fence=10000,
+                    min_m2m=4,
+                    max_m2m=8,
+                    pmb_rtp=1.0,
+                    sim_trials=5000,
+                    test_spins=[10, 20, 50],
+                    test_weights=[0.6, 0.2, 0.2],
+                    score_type="rtp",
+                ).return_dict(),
+            },
+            "bonus_3x": {
+                "conditions": {
+                    "wincap": ConstructConditions(rtp=0.01, av_win=6750, search_conditions=6750).return_dict(),
+                    "freegame": ConstructConditions(rtp=0.955, hr="x").return_dict(),
+                },
+                "scaling": ConstructScaling(
+                    [
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 1.2,
+                            "win_range": (1, 20),
+                            "probability": 1.0,
+                        },
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 0.5,
+                            "win_range": (20, 50),
+                            "probability": 1.0,
+                        },
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 1.8,
+                            "win_range": (50, 100),
+                            "probability": 1.0,
+                        },
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 0.8,
+                            "win_range": (1000, 2000),
+                            "probability": 1.0,
+                        },
+                        {
+                            "criteria": "freegame",
+                            "scale_factor": 1.2,
+                            "win_range": (3000, 4000),
+                            "probability": 1.0,
+                        },
+                    ]
+                ).return_dict(),
+                "parameters": ConstructParameters(
+                    num_show=5000,
+                    num_per_fence=10000,
+                    min_m2m=4,
+                    max_m2m=8,
+                    pmb_rtp=1.0,
+                    sim_trials=5000,
+                    test_spins=[10, 20, 50],
+                    test_weights=[0.6, 0.2, 0.2],
+                    score_type="rtp",
+                ).return_dict(),
+            },
+            "bonus_4x": {
                 "conditions": {
                     "wincap": ConstructConditions(rtp=0.01, av_win=6750, search_conditions=6750).return_dict(),
                     "freegame": ConstructConditions(rtp=0.955, hr="x").return_dict(),

@@ -12,11 +12,12 @@ class GameExecutables(GameCalculations):
         Lines.emit_linewin_events(self)
 
     def replace_wilds_on_board_with_normal_symbols(self) -> None:
-        for reel in self.board:
-            for symbol in reel:
+        for reel_idx, reel in enumerate(self.board):
+            for row_idx, symbol in enumerate(reel):
                 if symbol.name == "W":
                     possible_values = ["L1", "L2", "L3", "L4", "L5", "H1", "H2", "H3", "H4"]
-                    symbol = self.create_symbol(symbol.name)
+                    new_symbol = self.create_symbol(random.choice(possible_values))
+                    self.board[reel_idx][row_idx] = new_symbol
 
     def update_board_with_new_sticky_wilds(self, wilds: list[dict]) -> None:
         for sticky_wild in wilds:
