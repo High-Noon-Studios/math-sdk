@@ -204,6 +204,7 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
+                            "scatter_triggers": {0: 26, 1: 70, 2: 4 }
                         },
                     ),
                     Distribution(
@@ -214,6 +215,7 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
+                            "scatter_triggers": {0: 26, 1: 70, 2: 4 }
                         },
                     ),
                 ],

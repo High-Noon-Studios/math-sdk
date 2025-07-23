@@ -1,8 +1,8 @@
 from game_override import GameStateOverride
 from src.calculations.lines import Lines
 from src.calculations.statistics import get_random_outcome
-from src.events.events import update_freespin_event, reveal_event, set_total_event, set_win_event
-from game_events import new_sticky_event
+from src.events.events import update_freespin_event, set_total_event, set_win_event
+from game_events import new_sticky_event, reveal_event
 
 class GameState(GameStateOverride):
     """Handles game logic and events for a single simulation number/game-round."""
@@ -12,7 +12,12 @@ class GameState(GameStateOverride):
         self.repeat = True
         while self.repeat:
             self.reset_book()
-            self.draw_board()
+            self.draw_board(emit_event=False)
+
+            if (self.check_fs_condition()):
+                self.anticipation = [0, 0, 0, 0, 1]
+
+            reveal_event(self)
 
             # Evaluate wins, update wallet, transmit events
             self.evaluate_lines_board()
@@ -34,9 +39,15 @@ class GameState(GameStateOverride):
         while self.fs < self.tot_fs and not self.wincap_triggered:
             self.update_freespin()
             self.draw_board(emit_event=False)
+            if (self.check_fs_retrigger_condition()):
+                self.anticipation = [0, 0, 0, 0, 1]
+
             self.replace_wilds_on_board_with_normal_symbols()
 
             max_num_new_wilds = get_random_outcome(self.get_current_distribution_conditions()["landing_wilds"])
+            # guarantee at least one sticky wild on the first free spin
+            if (self.fs == 1 and max_num_new_wilds == 0):
+                max_num_new_wilds = 1
             # if self.betmode == 'bonus' and self.fs == 1:
             #     max_num_new_wilds = get_random_outcome(self.get_current_distribution_conditions()["initial_sticky_wilds"])
             new_sticky_wilds = self.generate_new_sticky_wilds(max_num_new_wilds)
