@@ -63,6 +63,15 @@ class GameExecutables(GameCalculations):
 
         return new_sticky_wilds
 
+
+    def get_wilds_on_board(self) -> list[tuple[int, int]]:
+        return [
+            (r, c)
+            for r in range(1, 4)
+            for c in range(self.config.num_rows[r])
+            if self.board[r][c] == "W"
+        ]
+
     # only added this to make the code more readable
     def check_fs_retrigger_condition(self) -> bool:
         return self.check_fs_condition()

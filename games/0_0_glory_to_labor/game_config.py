@@ -28,6 +28,9 @@ class GameConfig(Config):
         self.num_reels = 5
         self.num_rows = [3] * self.num_reels
         self.paytable = {
+            (5, "W"): 8,
+            (4, "W"): 2,
+
             (5, "H1"): 8,
             (4, "H1"): 2,
             (3, "H1"): 0.8,
@@ -63,6 +66,8 @@ class GameConfig(Config):
             (5, "L5"): 0.5,
             (4, "L5"): 0.2,
             (3, "L5"): 0.1,
+
+            (99, "KM"): 0, # only used for symbol registration
         }
 
         self.paylines = {
@@ -90,8 +95,8 @@ class GameConfig(Config):
 
         self.include_padding = True
         self.special_symbols = {
-            "wild": ["W"],
-            "scatter": ["S"],
+            "wild": ["W", "KM"],
+            "scatter": ["S", "KM"],
             "multiplier": ["W"]
         }
 
@@ -122,6 +127,10 @@ class GameConfig(Config):
             self.basegame_type: {1: 120, 2: 30, 3: 20},
             self.freegame_type: {1: 100, 2: 35, 3: 25},
         }
+        mult_values_wcap = {
+            self.basegame_type: mult_values_default[self.basegame_type],
+            self.freegame_type: {3: 1},
+        }
         mult_values_2x = {
             self.basegame_type: mult_values_default[self.basegame_type],
             self.freegame_type: {2: 100, 4: 35, 6: 25},
@@ -136,7 +145,7 @@ class GameConfig(Config):
         }
         mult_values_3x_wcap = {
             self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {8: 1},
+            self.freegame_type: {9: 1},
         }
         mult_values_4x = {
             self.basegame_type: mult_values_default[self.basegame_type],
@@ -144,15 +153,72 @@ class GameConfig(Config):
         }
         mult_values_4x_wcap = {
             self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {10: 1},
-        }
-        mult_values_wcap = {
-            self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {3: 1},
+            self.freegame_type: {12: 1},
         }
 
         landing_wilds_default = {0: 200, 1: 20, 2: 10, 3: 1}
         landing_wilds_wcap = {1: 1, 2: 1, 3: 1}
+
+        landing_marx = { 0: 80, 1: 15, 2: 5 }
+        # map of "number of wilds on board" to a map of probabilities of number of symbols to be flipped to wilds
+        marx_wild_flip = {
+            0: {
+                0: 0,
+                1: 8,
+                2: 8,
+            },
+            1: {
+                0: 2,
+                1: 8,
+                2: 7,
+            },
+            2: {
+                0: 4,
+                1: 8,
+                2: 6,
+            },
+            3: {
+                0: 6,
+                1: 8,
+                2: 5,
+            },
+            4: {
+                0: 8,
+                1: 8,
+                2: 4,
+            },
+            5: {
+                0: 10,
+                1: 8,
+                2: 3,
+            },
+            6: {
+                0: 12,
+                1: 8,
+                2: 2,
+            },
+            7: {
+                0: 14,
+                1: 8,
+                2: 1,
+            },
+            8: {
+                0: 16,
+                1: 8,
+                2: 0,
+            },
+            9: {
+                0: 1,
+            }
+        }
+
+        marx_mult_increase = {
+            0: 40,
+            1: 40,
+            2: 10,
+            3: 9,
+            4: 1,
+        }
 
         self.bet_modes = [
             BetMode(
@@ -178,6 +244,9 @@ class GameConfig(Config):
                             "landing_wilds": landing_wilds_wcap,
                             "force_wincap": True,
                             "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                     Distribution(
@@ -193,6 +262,9 @@ class GameConfig(Config):
                             "landing_wilds": landing_wilds_default,
                             "force_wincap": False,
                             "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                     Distribution(
@@ -204,7 +276,10 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
-                            "scatter_triggers": {0: 26, 1: 70, 2: 4 }
+                            "scatter_triggers": {0: 26, 1: 70, 2: 4 },
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                     Distribution(
@@ -215,7 +290,10 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
-                            "scatter_triggers": {0: 26, 1: 70, 2: 4 }
+                            "scatter_triggers": {0: 26, 1: 70, 2: 4 },
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                 ],
@@ -243,6 +321,9 @@ class GameConfig(Config):
                             "landing_wilds": landing_wilds_wcap,
                             "force_wincap": True,
                             "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                     Distribution(
@@ -258,6 +339,9 @@ class GameConfig(Config):
                             "landing_wilds": landing_wilds_default,
                             "force_wincap": False,
                             "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                 ],
@@ -285,6 +369,9 @@ class GameConfig(Config):
                             "landing_wilds": landing_wilds_wcap,
                             "force_wincap": True,
                             "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                     Distribution(
@@ -300,6 +387,9 @@ class GameConfig(Config):
                             "landing_wilds": landing_wilds_default,
                             "force_wincap": False,
                             "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                 ],
@@ -327,6 +417,9 @@ class GameConfig(Config):
                             "landing_wilds": landing_wilds_wcap,
                             "force_wincap": True,
                             "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                     Distribution(
@@ -342,6 +435,9 @@ class GameConfig(Config):
                             "landing_wilds": landing_wilds_default,
                             "force_wincap": False,
                             "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
                         },
                     ),
                 ],

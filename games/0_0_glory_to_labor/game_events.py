@@ -5,6 +5,42 @@ from src.events.event_constants import EventConstants
 from src.events.events import json_ready_sym
 
 NEW_STICKY_SYMS = "newStickySymbols"
+FLIP_WILDS = "flipWilds"
+INCREASE_WILD_MULT = "increaseWildMult"
+MARX_TRIGGER = "marxTrigger"
+
+def marx_trigger(gamestate):
+    event = {
+        "index": len(gamestate.book.events),
+        "type": MARX_TRIGGER,
+    }
+    gamestate.book.add_event(event)
+
+def flip_wilds_event(gamestate, symbols_to_flip: list):
+    """Pass details on new prize symbols"""
+    if gamestate.config.include_padding:
+        for sym in symbols_to_flip:
+            sym["row"] += 1
+
+    event = {
+        "index": len(gamestate.book.events),
+        "type": FLIP_WILDS,
+        "symbols": symbols_to_flip
+    }
+    gamestate.book.add_event(event)
+
+def increase_wild_mult_event(gamestate, symbols: list):
+    if gamestate.config.include_padding:
+        for sym in symbols:
+            sym["row"] += 1
+
+    """Pass details on new prize symbols"""
+    event = {
+        "index": len(gamestate.book.events),
+        "type": INCREASE_WILD_MULT,
+        "symbols": symbols
+    }
+    gamestate.book.add_event(event)
 
 def new_sticky_event(gamestate, new_sticky_syms: list):
     """Pass details on new prize symbols"""

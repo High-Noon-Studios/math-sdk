@@ -11,24 +11,24 @@ from src.write_data.write_configs import generate_configs
 
 if __name__ == "__main__":
 
-    num_threads = 10
+    num_threads = 1
     rust_threads = 20
     batching_size = 5000
-    compression = True
+    compression = False
     profiling = False
 
     num_sim_args = {
-        "base": int(1e4),
-        "bonus_2x": int(1e4),
-        "bonus_3x": int(1e4),
-        "bonus_4x": int(1e4),
+        "base": int(100),
+        "bonus_2x": int(100),
+        "bonus_3x": int(100),
+        "bonus_4x": int(100),
     }
 
     run_conditions = {
         "run_sims": True,
-        "run_optimization": True,
-        "run_analysis": True,
-        "run_format_checks": True,
+        "run_optimization": False,
+        "run_analysis": False,
+        "run_format_checks": False,
     }
     target_modes = list(num_sim_args.keys())
 
