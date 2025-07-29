@@ -294,3 +294,12 @@ class Board(GeneralGameState):
                 if self.board[idx][idy].name.upper() == symbol_name.upper():
                     symbol_count += 1
         return symbol_count
+
+    def get_symbols_on_board(self, symbol_name: str) -> int:
+        """Get all symbols on the board matching the target name."""
+        symbols = []
+        for idx, _ in enumerate(self.board):
+            for idy, _ in enumerate(self.board[idx]):
+                if self.board[idx][idy].name.upper() == symbol_name.upper():
+                    symbols.append({"reel": idx, "row": idy, "multiplier": self.board[idx][idy].multiplier})
+        return symbols

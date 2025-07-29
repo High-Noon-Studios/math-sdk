@@ -96,8 +96,8 @@ class GameConfig(Config):
         self.include_padding = True
         self.special_symbols = {
             "wild": ["W", "KM"],
-            "scatter": ["S", "KM"],
-            "multiplier": ["W"]
+            "scatter": ["S"],
+            "multiplier": ["W"],
         }
 
         self.freespin_triggers = {
