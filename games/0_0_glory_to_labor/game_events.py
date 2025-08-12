@@ -76,10 +76,17 @@ def reveal_event(gamestate):
             ]
             board_client[reel].append(json_ready_sym(gamestate.bottom_symbols[reel], special_attributes))
 
-    if (gamestate.count_special_symbols("scatter") >= 2 or gamestate.count_symbols_on_board("KM") >= 1):
-        gamestate.anticipation = [0, 0, 0, 0, 1]
-    else:
-        gamestate.anticipation = [0, 0, 0, 0, 0]
+    if (gamestate.gametype == "basegame"):
+        if (gamestate.count_special_symbols("scatter") >= 2):
+            gamestate.anticipation = [0, 0, 0, 0, 1]
+        else:
+            gamestate.anticipation = [0, 0, 0, 0, 0]
+
+    if (gamestate.gametype == "freegame"):
+        if (gamestate.count_special_symbols("scatter") >= 1 or gamestate.count_symbols_on_board("KM") >= 1):
+            gamestate.anticipation = [0, 0, 0, 0, 1]
+        else:
+            gamestate.anticipation = [0, 0, 0, 0, 0]
 
     event = {
         "index": len(gamestate.book.events),
