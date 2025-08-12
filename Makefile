@@ -26,9 +26,14 @@ setup: packInstall
 	@echo "To activate it, run:"
 	@echo "$(ACTIVATE)"
 
-
 run GAME:
 	$(VENV_PY) games/$(GAME)/run.py
+
+runDev GAME:
+	$(VENV_PY) games/$(GAME)/run_dev.py
+
+visualize GAME:
+	$(VENV_PY) games/$(GAME)/visualize_stats.py --json games/$(GAME)/library/stats_summary.json --excel games/$(GAME)/library/$(GAME)_full_statistics.xlsx --out games/$(GAME)/stats_figs --show 1
 
 test:
 	cd $(CURDIR)

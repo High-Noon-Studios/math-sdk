@@ -70,11 +70,3 @@ if __name__ == "__main__":
         )
     except Exception as e:
         print(f"Failed to run sync-math-to-web.js: {e}")
-
-    try:
-        subprocess.run(
-            ["make", "visualize", "GAME=0_0_glory_to_labor"],
-            check=True,
-        )
-    except Exception as e:
-        print(f"Failed to run visualize: {e}")

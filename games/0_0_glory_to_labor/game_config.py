@@ -124,34 +124,18 @@ class GameConfig(Config):
         self.padding_reels[self.freegame_type] = self.reels["FR0"]
 
         mult_values_default = {
-            self.basegame_type: {1: 120, 2: 30, 3: 20},
-            self.freegame_type: {1: 100, 2: 35, 3: 25},
+            self.basegame_type: {2: 120, 3: 30, 4: 20},
+            self.freegame_type: {2: 100, 3: 35, 4: 25},
         }
         mult_values_wcap = {
             self.basegame_type: mult_values_default[self.basegame_type],
             self.freegame_type: {3: 1},
         }
-        mult_values_2x = {
+        mult_values_super = {
             self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {2: 100, 4: 35, 6: 25},
+            self.freegame_type: {4: 100, 6: 50, 8: 25, 10: 12, 12: 6},
         }
-        mult_values_2x_wcap = {
-            self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {6: 1},
-        }
-        mult_values_3x = {
-            self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {3: 100, 6: 35, 9: 25},
-        }
-        mult_values_3x_wcap = {
-            self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {9: 1},
-        }
-        mult_values_4x = {
-            self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {4: 100, 8: 35, 12: 25},
-        }
-        mult_values_4x_wcap = {
+        mult_values_super_wcap = {
             self.basegame_type: mult_values_default[self.basegame_type],
             self.freegame_type: {12: 1},
         }
@@ -159,7 +143,7 @@ class GameConfig(Config):
         landing_wilds_default = {0: 200, 1: 20, 2: 10, 3: 1}
         landing_wilds_wcap = {1: 1, 2: 1, 3: 1}
 
-        landing_marx = { 0: 7, 1: 2, 2: 1 }
+        landing_marx = { 0: 14, 1: 2, 2: 1 }
         # map of "number of wilds on board" to a map of probabilities of number of symbols to be flipped to wilds
         marx_wild_flip = {
             0: {
@@ -299,8 +283,8 @@ class GameConfig(Config):
                 ],
             ),
             BetMode(
-                name="bonus_2x",
-                cost=20.0,
+                name="regular_bonus",
+                cost=100.0,
                 rtp=self.rtp,
                 max_win=self.wincap,
                 auto_close_disabled=False,
@@ -317,7 +301,7 @@ class GameConfig(Config):
                                 self.freegame_type: {"WCAP": 1},
                             },
                             "scatter_triggers": {3: 1},
-                            "mult_values": mult_values_2x_wcap,
+                            "mult_values": mult_values_wcap,
                             "landing_wilds": landing_wilds_wcap,
                             "force_wincap": True,
                             "force_freegame": True,
@@ -335,7 +319,7 @@ class GameConfig(Config):
                                 self.freegame_type: {"FR0": 49, "WCAP": 1},
                             },
                             "scatter_triggers": {3: 1},
-                            "mult_values": mult_values_2x,
+                            "mult_values": mult_values_default,
                             "landing_wilds": landing_wilds_default,
                             "force_wincap": False,
                             "force_freegame": True,
@@ -347,8 +331,8 @@ class GameConfig(Config):
                 ],
             ),
             BetMode(
-                name="bonus_3x",
-                cost=40.0,
+                name="super_bonus",
+                cost=400.0,
                 rtp=self.rtp,
                 max_win=self.wincap,
                 auto_close_disabled=False,
@@ -365,7 +349,7 @@ class GameConfig(Config):
                                 self.freegame_type: {"WCAP": 1},
                             },
                             "scatter_triggers": {3: 1},
-                            "mult_values": mult_values_3x_wcap,
+                            "mult_values": mult_values_super_wcap,
                             "landing_wilds": landing_wilds_wcap,
                             "force_wincap": True,
                             "force_freegame": True,
@@ -383,55 +367,7 @@ class GameConfig(Config):
                                 self.freegame_type: {"FR0": 49, "WCAP": 1},
                             },
                             "scatter_triggers": {3: 1},
-                            "mult_values": mult_values_3x,
-                            "landing_wilds": landing_wilds_default,
-                            "force_wincap": False,
-                            "force_freegame": True,
-                            "landing_marx": landing_marx,
-                            "marx_wild_flip": marx_wild_flip,
-                            "marx_mult_increase": marx_mult_increase,
-                        },
-                    ),
-                ],
-            ),
-            BetMode(
-                name="bonus_4x",
-                cost=60.0,
-                rtp=self.rtp,
-                max_win=self.wincap,
-                auto_close_disabled=False,
-                is_feature=False,
-                is_buybonus=True,
-                distributions=[
-                    Distribution(
-                        criteria="wincap",
-                        quota=0.001,
-                        win_criteria=self.wincap,
-                        conditions={
-                            "reel_weights": {
-                                self.basegame_type: {"BR0": 1},
-                                self.freegame_type: {"WCAP": 1},
-                            },
-                            "scatter_triggers": {3: 1},
-                            "mult_values": mult_values_4x_wcap,
-                            "landing_wilds": landing_wilds_wcap,
-                            "force_wincap": True,
-                            "force_freegame": True,
-                            "landing_marx": landing_marx,
-                            "marx_wild_flip": marx_wild_flip,
-                            "marx_mult_increase": marx_mult_increase,
-                        },
-                    ),
-                    Distribution(
-                        criteria="freegame",
-                        quota=0.999,
-                        conditions={
-                            "reel_weights": {
-                                self.basegame_type: {"BR0": 1},
-                                self.freegame_type: {"FR0": 49, "WCAP": 1},
-                            },
-                            "scatter_triggers": {3: 1},
-                            "mult_values": mult_values_4x,
+                            "mult_values": mult_values_super,
                             "landing_wilds": landing_wilds_default,
                             "force_wincap": False,
                             "force_freegame": True,

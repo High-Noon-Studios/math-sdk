@@ -87,7 +87,9 @@ class GameState(GameStateOverride):
 
                 if (marx_wild_flip_count > 0):
                     symbols_to_flip = [
-                        {"reel": x["reel"], "row": x["row"], "multiplier": 1}
+                        {"reel": x["reel"], "row": x["row"], "multiplier": get_random_outcome(
+                            self.get_current_distribution_conditions()["mult_values"][self.gametype]
+                        )}
                         for x in self.generate_new_sticky_wilds(marx_wild_flip_count)
                     ]
                     random.shuffle(symbols_to_flip)
@@ -98,6 +100,12 @@ class GameState(GameStateOverride):
                 updated_sticky_wilds = []
                 for wild in wilds_on_board:
                     marx_mult_increase = get_random_outcome(self.get_current_distribution_conditions()["marx_mult_increase"])
+
+                    # this guarantees that marx will always perform at least 1 action
+                    if (marx_wild_flip_count == 0 and len(updated_sticky_wilds) == 0):
+                        while (marx_mult_increase == 0):
+                            marx_mult_increase = get_random_outcome(self.get_current_distribution_conditions()["marx_mult_increase"])
+
                     if (marx_mult_increase > 0):
                         self.sticky_wilds = [
                             x if x["row"] != wild["row"] or x["reel"] != wild["reel"] else {"reel": x["reel"], "row": x["row"], "multiplier": x["multiplier"] + marx_mult_increase}
