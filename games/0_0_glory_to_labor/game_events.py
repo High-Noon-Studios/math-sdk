@@ -77,7 +77,10 @@ def reveal_event(gamestate):
             board_client[reel].append(json_ready_sym(gamestate.bottom_symbols[reel], special_attributes))
 
     if (gamestate.gametype == "basegame"):
-        if (gamestate.count_special_symbols("scatter") >= 2):
+        # Determine anticipation for basegame: if there is a scatter on both reel 1 and reel 3, set anticipation to 1 on last reel, else 0
+        scatter_positions = gamestate.special_syms_on_board.get("scatter", [])
+        reels_with_scatter = {pos["reel"] for pos in scatter_positions}
+        if 0 in reels_with_scatter and 2 in reels_with_scatter:
             gamestate.anticipation = [0, 0, 0, 0, 1]
         else:
             gamestate.anticipation = [0, 0, 0, 0, 0]
