@@ -56,7 +56,7 @@ if __name__ == "__main__":
         generate_configs(gamestate)
 
     if run_conditions["run_analysis"]:
-        custom_keys = [{"symbol": "scatter"}]
+        custom_keys = [{"symbol": "scatter"}, {"symbol": "marx"}]
         create_stat_sheet(gamestate, custom_keys=custom_keys)
 
     if run_conditions["run_format_checks"]:

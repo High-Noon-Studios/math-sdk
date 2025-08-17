@@ -86,7 +86,11 @@ def reveal_event(gamestate):
             gamestate.anticipation = [0, 0, 0, 0, 0]
 
     if (gamestate.gametype == "freegame"):
-        if (gamestate.count_special_symbols("scatter") >= 1 or gamestate.count_symbols_on_board("KM") >= 1):
+        marx_positions = gamestate.special_syms_on_board.get("marx", [])
+        scatter_positions = gamestate.special_syms_on_board.get("scatter", [])
+        reels_with_marx = {pos["reel"] for pos in marx_positions}
+        reels_with_scatter = {pos["reel"] for pos in scatter_positions}
+        if 0 in reels_with_marx or 0 in reels_with_scatter:
             gamestate.anticipation = [0, 0, 0, 0, 1]
         else:
             gamestate.anticipation = [0, 0, 0, 0, 0]

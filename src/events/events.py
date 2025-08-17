@@ -69,6 +69,7 @@ def fs_trigger_event(
         event = {
             "index": len(gamestate.book.events),
             "type": EventConstants.FREESPINRETRIGGER.value,
+            "extraSpins": 2,
             "totalFs": gamestate.tot_fs,
             "positions": scatter_positions,
         }

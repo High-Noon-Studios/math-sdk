@@ -11,18 +11,20 @@ from utils.rgs_verification import execute_all_tests
 from src.state.run_sims import create_books
 from src.write_data.write_configs import generate_configs
 
+NUM_SIMS = 1e4
+
 if __name__ == "__main__":
 
-    num_threads = 20
-    rust_threads = 30
-    batching_size = 5000
+    num_threads = 100
+    rust_threads = 100
+    batching_size = 1000
     compression = True
     profiling = False
 
     num_sim_args = {
-        "base": int(10_000),
-        "regular_bonus": int(10_000),
-        "super_bonus": int(10_000),
+        "base": int(NUM_SIMS),
+        "regular_bonus": int(NUM_SIMS),
+        "super_bonus": int(NUM_SIMS),
     }
 
     run_conditions = {

@@ -1,6 +1,6 @@
 """Set conditions/parameters for optimization program program"""
 
-from constants import free_game_hr, wincap_from_base_game_hr, wincap_from_regular_bonus_hr, wincap_from_super_bonus_hr
+from constants import wincap, free_game_hr, wincap_from_base_game_hr, wincap_from_regular_bonus_hr, wincap_from_super_bonus_hr
 
 from optimization_program.optimization_config import (
     ConstructScaling,
@@ -16,35 +16,23 @@ class OptimizationSetup:
         self.game_config.opt_params = {
             "base": {
                 "conditions": {
-                    "wincap": ConstructConditions(rtp=0.01, hr=wincap_from_base_game_hr, av_win=6750, search_conditions=6750).return_dict(),
+                    "wincap": ConstructConditions(rtp=0.01, hr=wincap_from_base_game_hr, av_win=wincap, search_conditions=wincap).return_dict(),
                     "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
                     "freegame": ConstructConditions(
                         rtp=0.565, hr=free_game_hr, search_conditions={"symbol": "scatter"}
                     ).return_dict(),
-                    "basegame": ConstructConditions(hr=3.47, rtp=0.39).return_dict(),
+                    "basegame": ConstructConditions(hr=4, rtp=0.39).return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        # {"criteria": "basegame", "scale_factor": 2, "win_range": (1, 2), "probability": 1.0},
-                        # {"criteria": "basegame", "scale_factor": 1.2, "win_range": (10, 20), "probability": 1.0},
-                        # {
-                        #     "criteria": "freegame",
-                        #     "scale_factor": 0.8,
-                        #     "win_range": (1000, 2000),
-                        #     "probability": 1.0,
-                        # },
-                        # {
-                        #     "criteria": "freegame",
-                        #     "scale_factor": 1.2,
-                        #     "win_range": (3000, 4000),
-                        #     "probability": 1.0,
-                        # },
+                        {"criteria": "freegame", "scale_factor": 2.0, "win_range": (0, 0.2), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 0.5, "win_range": (0.2, 5), "probability": 1.0},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
                     num_show=5000,
                     num_per_fence=10000,
-                    min_m2m=16,
+                    min_m2m=10,
                     max_m2m=20,
                     pmb_rtp=1.0,
                     sim_trials=5000,
@@ -55,35 +43,20 @@ class OptimizationSetup:
             },
             "regular_bonus": {
                 "conditions": {
-                    "wincap": ConstructConditions(rtp=0.01, av_win=6750, hr=wincap_from_regular_bonus_hr, search_conditions=6750).return_dict(),
+                    "wincap": ConstructConditions(rtp=0.01, av_win=wincap, hr=wincap_from_regular_bonus_hr, search_conditions=wincap).return_dict(),
+                    "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
                     "freegame": ConstructConditions(rtp=0.955, hr="x").return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        # {
-                        #     "criteria": "freegame",
-                        #     "scale_factor": 1.2,
-                        #     "win_range": (1, 20),
-                        #     "probability": 1.0,
-                        # },
-                        # {
-                        #     "criteria": "freegame",
-                        #     "scale_factor": 1.0,
-                        #     "win_range": (1000, 2000),
-                        #     "probability": 1.0,
-                        # },
-                        # {
-                        #     "criteria": "freegame",
-                        #     "scale_factor": 1.0,
-                        #     "win_range": (3000, 4000),
-                        #     "probability": 1.0,
-                        # },
+                        {"criteria": "freegame", "scale_factor": 2.0, "win_range": (0, 20), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 0.5, "win_range": (20, 500), "probability": 1.0},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
                     num_show=5000,
                     num_per_fence=10000,
-                    min_m2m=16,
+                    min_m2m=10,
                     max_m2m=20,
                     pmb_rtp=1.0,
                     sim_trials=5000,
@@ -94,35 +67,20 @@ class OptimizationSetup:
             },
             "super_bonus": {
                 "conditions": {
-                    "wincap": ConstructConditions(rtp=0.01, av_win=6750, hr=wincap_from_super_bonus_hr, search_conditions=6750).return_dict(),
+                    "wincap": ConstructConditions(rtp=0.01, av_win=wincap, hr=wincap_from_super_bonus_hr, search_conditions=wincap).return_dict(),
+                    "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
                     "freegame": ConstructConditions(rtp=0.955, hr="x").return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        # {
-                        #     "criteria": "freegame",
-                        #     "scale_factor": 1.2,
-                        #     "win_range": (1, 20),
-                        #     "probability": 1.0,
-                        # },
-                        # {
-                        #     "criteria": "freegame",
-                        #     "scale_factor": 1.0,
-                        #     "win_range": (1000, 2000),
-                        #     "probability": 1.0,
-                        # },
-                        # {
-                        #     "criteria": "freegame",
-                        #     "scale_factor": 1.0,
-                        #     "win_range": (3000, 4000),
-                        #     "probability": 1.0,
-                        # },
+                       {"criteria": "freegame", "scale_factor": 2.0, "win_range": (0, 40), "probability": 1.0},
+                       {"criteria": "freegame", "scale_factor": 0.5, "win_range": (40, 1000), "probability": 1.0},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
                     num_show=5000,
                     num_per_fence=10000,
-                    min_m2m=16,
+                    min_m2m=10,
                     max_m2m=20,
                     pmb_rtp=1.0,
                     sim_trials=5000,

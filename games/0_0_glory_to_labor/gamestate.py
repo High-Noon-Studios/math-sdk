@@ -63,12 +63,14 @@ class GameState(GameStateOverride):
             max_num_new_wilds = get_random_outcome(self.get_current_distribution_conditions()["landing_wilds"])
 
             # guarantee at least one sticky wild on the first free spin
-            if (self.fs == 1 and max_num_new_wilds == 0):
-                max_num_new_wilds = 1
+            # if (self.fs == 1 and max_num_new_wilds == 0):
+            #     max_num_new_wilds = 1
             new_sticky_wilds = self.generate_new_sticky_wilds(max_num_new_wilds)
             self.sticky_wilds.extend(new_sticky_wilds)
 
             self.update_board_with_new_sticky_wilds(new_sticky_wilds)
+            # this ensures marx shows up when searching for special symbols later to determine anticipation
+            self.get_special_symbols_on_board()
             reveal_event(self)
 
             self.update_board_with_existing_sticky_wilds()

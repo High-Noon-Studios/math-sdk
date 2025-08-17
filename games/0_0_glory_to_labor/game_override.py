@@ -14,6 +14,7 @@ class GameStateOverride(GameExecutables):
     def assign_special_sym_function(self):
         self.special_symbol_functions = {
             "W": [self.assign_mult_property],
+            "KM": [self.assign_marx_property],
         }
 
     def assign_mult_property(self, symbol) -> dict:
@@ -22,6 +23,9 @@ class GameStateOverride(GameExecutables):
         )
 
         symbol.assign_attribute({"multiplier": multiplier_value})
+
+    def assign_marx_property(self, symbol) -> dict:
+        symbol.assign_attribute({"marx": True})
 
     def check_repeat(self):
         super().check_repeat()

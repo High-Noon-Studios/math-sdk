@@ -4,7 +4,7 @@ import os
 from src.config.config import Config
 from src.config.distributions import Distribution
 from src.config.betmode import BetMode
-
+from constants import wincap
 
 class GameConfig(Config):
 
@@ -20,7 +20,7 @@ class GameConfig(Config):
         self.game_id = "0_0_glory_to_labor"
         self.provider_number = 0
         self.working_name = "Glory to Labor!"
-        self.wincap = 6750.0
+        self.wincap = wincap
         self.win_type = "lines"
         self.rtp = 0.965
         self.construct_paths()
@@ -95,7 +95,8 @@ class GameConfig(Config):
 
         self.include_padding = True
         self.special_symbols = {
-            "wild": ["W", "KM"],
+            "marx": ["KM"],
+            "wild": ["W"],
             "scatter": ["S"],
             "multiplier": ["W"],
         }
@@ -125,71 +126,100 @@ class GameConfig(Config):
 
         mult_values_default = {
             self.basegame_type: {2: 120, 3: 30, 4: 20},
-            self.freegame_type: {2: 100, 3: 35, 4: 25},
+            self.freegame_type: {2: 150, 3: 100, 4: 50, 5: 25, 6: 10, 10: 5},
         }
         mult_values_wcap = {
             self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {3: 1},
+            self.freegame_type: {10: 1},
         }
         mult_values_super = {
             self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {4: 100, 6: 50, 8: 25, 10: 12, 12: 6},
+            self.freegame_type: {4: 150, 6: 100, 8: 50, 10: 25, 12: 10, 20: 5},
         }
         mult_values_super_wcap = {
             self.basegame_type: mult_values_default[self.basegame_type],
-            self.freegame_type: {12: 1},
+            self.freegame_type: {20: 1},
         }
 
-        landing_wilds_default = {0: 200, 1: 20, 2: 10, 3: 1}
+        landing_wilds_default = {
+            0: 262144,
+            1: 65536,
+            2: 16384,
+            3: 4096,
+            4: 1024,
+            5: 256,
+            6: 64,
+            7: 16,
+            8: 4,
+            9: 1,
+        }
         landing_wilds_wcap = {1: 1, 2: 1, 3: 1}
 
-        landing_marx = { 0: 14, 1: 2, 2: 1 }
+        landing_marx = { 0: 22, 1: 2, 2: 1 }
         # map of "number of wilds on board" to a map of probabilities of number of symbols to be flipped to wilds
         marx_wild_flip = {
             0: {
-                0: 0,
-                1: 8,
-                2: 8,
+                1: 256,
+                2: 128,
+                3: 64,
+                4: 32,
+                5: 16,
+                6: 8,
+                7: 4,
+                8: 2,
+                9: 1
             },
             1: {
-                0: 2,
-                1: 8,
-                2: 7,
+                1: 256,
+                2: 128,
+                3: 64,
+                4: 32,
+                5: 16,
+                6: 8,
+                7: 4,
+                8: 2
             },
             2: {
-                0: 4,
-                1: 8,
-                2: 6,
+                1: 256,
+                2: 128,
+                3: 64,
+                4: 32,
+                5: 16,
+                6: 8,
+                7: 4,
             },
             3: {
-                0: 6,
-                1: 8,
-                2: 5,
+                1: 256,
+                2: 128,
+                3: 64,
+                4: 32,
+                5: 16,
+                6: 8,
             },
             4: {
-                0: 8,
-                1: 8,
-                2: 4,
+                1: 256,
+                2: 128,
+                3: 64,
+                4: 32,
+                5: 16,
             },
             5: {
-                0: 10,
-                1: 8,
-                2: 3,
+                1: 256,
+                2: 128,
+                3: 64,
+                4: 32,
             },
             6: {
-                0: 12,
-                1: 8,
-                2: 2,
+                1: 256,
+                2: 128,
+                3: 64,
             },
             7: {
-                0: 14,
-                1: 8,
-                2: 1,
+                1: 256,
+                2: 128,
             },
             8: {
-                0: 16,
-                1: 8,
-                2: 0,
+                1: 1,
             },
             9: {
                 0: 1,
@@ -197,11 +227,17 @@ class GameConfig(Config):
         }
 
         marx_mult_increase = {
-            0: 40,
-            1: 40,
-            2: 10,
-            3: 9,
-            4: 1,
+            0: 1024,
+            1: 512,
+            2: 256,
+            3: 128,
+            4: 64,
+            5: 32,
+            6: 16,
+            7: 8,
+            8: 4,
+            9: 2,
+            10: 1,
         }
 
         self.bet_modes = [
@@ -260,7 +296,7 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
-                            "scatter_triggers": {0: 26, 1: 70, 2: 4 },
+                            "scatter_triggers": { 0: 26, 1: 70, 2: 16 },
                             "landing_marx": landing_marx,
                             "marx_wild_flip": marx_wild_flip,
                             "marx_mult_increase": marx_mult_increase,
@@ -274,7 +310,7 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
-                            "scatter_triggers": {0: 26, 1: 70, 2: 4 },
+                            "scatter_triggers": { 0: 26, 1: 70, 2: 16 },
                             "landing_marx": landing_marx,
                             "marx_wild_flip": marx_wild_flip,
                             "marx_mult_increase": marx_mult_increase,
@@ -332,7 +368,7 @@ class GameConfig(Config):
             ),
             BetMode(
                 name="super_bonus",
-                cost=400.0,
+                cost=200.0,
                 rtp=self.rtp,
                 max_win=self.wincap,
                 auto_close_disabled=False,
