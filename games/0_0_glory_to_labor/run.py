@@ -11,13 +11,13 @@ from utils.rgs_verification import execute_all_tests
 from src.state.run_sims import create_books
 from src.write_data.write_configs import generate_configs
 
-NUM_SIMS = 1e4
+NUM_SIMS = 1e6
 
 if __name__ == "__main__":
 
     num_threads = 100
     rust_threads = 100
-    batching_size = 1000
+    batching_size = 2000
     compression = True
     profiling = False
 

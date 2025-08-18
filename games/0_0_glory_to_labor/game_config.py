@@ -142,20 +142,20 @@ class GameConfig(Config):
         }
 
         landing_wilds_default = {
-            0: 262144,
-            1: 65536,
-            2: 16384,
-            3: 4096,
-            4: 1024,
-            5: 256,
-            6: 64,
-            7: 16,
-            8: 4,
-            9: 1,
+            0: 8**9,
+            1: 8**8,
+            2: 8**7,
+            3: 8**6,
+            4: 8**5,
+            5: 8**4,
+            6: 8**3,
+            7: 8**2,
+            8: 8**1,
+            9: 8**0,
         }
         landing_wilds_wcap = {1: 1, 2: 1, 3: 1}
 
-        landing_marx = { 0: 22, 1: 2, 2: 1 }
+        landing_marx = { 0: 20, 1: 4, 2: 1 }
         # map of "number of wilds on board" to a map of probabilities of number of symbols to be flipped to wilds
         marx_wild_flip = {
             0: {

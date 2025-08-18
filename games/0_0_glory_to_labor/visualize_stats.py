@@ -410,13 +410,6 @@ def main():
             y_grid = np.interp(x_grid, mids, probs, left=probs[0], right=probs[-1])
             overlay_curves.append((sheet, x_grid, y_grid))
 
-    # Export combined CSV
-    if export_rows:
-        combined = pd.concat(export_rows, ignore_index=True)
-        (out_dir.parent / "win_range_distributions_combined.csv").write_text(
-            combined.to_csv(index=False)
-        )
-
     # NEW: Combined overlay of all modes' HR curves
     if overlay_curves:
         # Align curves to a common x-grid up to the global max
