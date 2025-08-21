@@ -4,7 +4,7 @@ import os
 from src.config.config import Config
 from src.config.distributions import Distribution
 from src.config.betmode import BetMode
-from constants import wincap
+from constants import wincap, rtp, regular_bonus_cost, super_bonus_cost
 
 class GameConfig(Config):
 
@@ -22,7 +22,7 @@ class GameConfig(Config):
         self.working_name = "Glory to Labor!"
         self.wincap = wincap
         self.win_type = "lines"
-        self.rtp = 0.965
+        self.rtp = rtp
         self.construct_paths()
 
         self.num_reels = 5
@@ -142,84 +142,93 @@ class GameConfig(Config):
         }
 
         landing_wilds_default = {
-            0: 8**9,
-            1: 8**8,
-            2: 8**7,
-            3: 8**6,
-            4: 8**5,
-            5: 8**4,
-            6: 8**3,
-            7: 8**2,
-            8: 8**1,
-            9: 8**0,
+            0: 5**9,
+            1: 5**8,
+            2: 5**7,
+            3: 5**6,
+            4: 5**5,
+            5: 5**4,
+            6: 5**3,
+            7: 5**2,
+            8: 5**1,
+            9: 5**0,
         }
         landing_wilds_wcap = {1: 1, 2: 1, 3: 1}
 
-        landing_marx = { 0: 20, 1: 4, 2: 1 }
+        landing_marx = { 0: 15, 1: 4, 2: 1 }
         # map of "number of wilds on board" to a map of probabilities of number of symbols to be flipped to wilds
         marx_wild_flip = {
             0: {
-                1: 256,
-                2: 128,
-                3: 64,
-                4: 32,
-                5: 16,
-                6: 8,
-                7: 4,
-                8: 2,
-                9: 1
+                0: 3**9,
+                1: 3**8,
+                2: 3**7,
+                3: 3**6,
+                4: 3**5,
+                5: 3**4,
+                6: 3**3,
+                7: 3**2,
+                8: 3**1,
+                9: 3**0
             },
             1: {
-                1: 256,
-                2: 128,
-                3: 64,
-                4: 32,
-                5: 16,
-                6: 8,
-                7: 4,
-                8: 2
+                0: 3**9,
+                1: 3**8,
+                2: 3**7,
+                3: 3**6,
+                4: 3**5,
+                5: 3**4,
+                6: 3**3,
+                7: 3**2,
+                8: 3**1,
             },
             2: {
-                1: 256,
-                2: 128,
-                3: 64,
-                4: 32,
-                5: 16,
-                6: 8,
-                7: 4,
+                0: 3**9,
+                1: 3**8,
+                2: 3**7,
+                3: 3**6,
+                4: 3**5,
+                5: 3**4,
+                6: 3**3,
+                7: 3**2,
             },
             3: {
-                1: 256,
-                2: 128,
-                3: 64,
-                4: 32,
-                5: 16,
-                6: 8,
+                0: 3**9,
+                1: 3**8,
+                2: 3**7,
+                3: 3**6,
+                4: 3**5,
+                5: 3**4,
+                6: 3**3,
             },
             4: {
-                1: 256,
-                2: 128,
-                3: 64,
-                4: 32,
-                5: 16,
+                0: 3**9,
+                1: 3**8,
+                2: 3**7,
+                3: 3**6,
+                4: 3**5,
+                5: 3**4,
             },
             5: {
-                1: 256,
-                2: 128,
-                3: 64,
-                4: 32,
+                0: 3**9,
+                1: 3**8,
+                2: 3**7,
+                3: 3**6,
+                4: 3**5,
             },
             6: {
-                1: 256,
-                2: 128,
-                3: 64,
+                0: 3**9,
+                1: 3**8,
+                2: 3**7,
+                3: 3**6,
             },
             7: {
-                1: 256,
-                2: 128,
+                0: 3**9,
+                1: 3**8,
+                2: 3**7,
             },
             8: {
-                1: 1,
+                0: 3**9,
+                1: 3**8,
             },
             9: {
                 0: 1,
@@ -227,17 +236,17 @@ class GameConfig(Config):
         }
 
         marx_mult_increase = {
-            0: 1024,
-            1: 512,
-            2: 256,
-            3: 128,
-            4: 64,
-            5: 32,
-            6: 16,
-            7: 8,
-            8: 4,
-            9: 2,
-            10: 1,
+            0: 3**10,
+            1: 3**9,
+            2: 3**8,
+            3: 3**7,
+            4: 3**6,
+            5: 3**5,
+            6: 3**4,
+            7: 3**3,
+            8: 3**2,
+            9: 3**1,
+            10: 3**0,
         }
 
         self.bet_modes = [
@@ -275,7 +284,7 @@ class GameConfig(Config):
                         conditions={
                             "reel_weights": {
                                 self.basegame_type: {"BR0": 1},
-                                self.freegame_type: {"FR0": 49, "WCAP": 1},
+                                self.freegame_type: {"FR0": 1},
                             },
                             "scatter_triggers": {3: 1},
                             "mult_values": mult_values_default,
@@ -320,7 +329,7 @@ class GameConfig(Config):
             ),
             BetMode(
                 name="regular_bonus",
-                cost=100.0,
+                cost=regular_bonus_cost,
                 rtp=self.rtp,
                 max_win=self.wincap,
                 auto_close_disabled=False,
@@ -368,7 +377,7 @@ class GameConfig(Config):
             ),
             BetMode(
                 name="super_bonus",
-                cost=200.0,
+                cost=super_bonus_cost,
                 rtp=self.rtp,
                 max_win=self.wincap,
                 auto_close_disabled=False,

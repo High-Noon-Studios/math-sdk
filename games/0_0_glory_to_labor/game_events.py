@@ -5,9 +5,10 @@ from src.events.event_constants import EventConstants
 from src.events.events import json_ready_sym
 
 NEW_STICKY_SYMS = "newStickySymbols"
-FLIP_WILDS = "flipWilds"
-INCREASE_WILD_MULT = "increaseWildMult"
+# FLIP_WILDS = "flipWilds"
+# INCREASE_WILD_MULT = "increaseWildMult"
 MARX_TRIGGER = "marxTrigger"
+UPDATE_STICKY_WILDS = "updateStickyWilds"
 
 def marx_trigger(gamestate, positions: list):
     event = {
@@ -17,34 +18,52 @@ def marx_trigger(gamestate, positions: list):
     }
     gamestate.book.add_event(event)
 
-def flip_wilds_event(gamestate, symbols_to_flip: list):
-    """Pass details on new prize symbols"""
-    # Clone symbols_to_flip so the original is not modified
+def update_sticky_wilds_event(gamestate, symbols_to_flip: list, updated_sticky_wilds: list):
+    """Clone symbols_to_flip so the original is not modified"""
     symbols_to_flip_cloned = deepcopy(symbols_to_flip)
+    updated_sticky_wilds_cloned = deepcopy(updated_sticky_wilds)
     if gamestate.config.include_padding:
         for sym in symbols_to_flip_cloned:
             sym["row"] += 1
-
-    event = {
-        "index": len(gamestate.book.events),
-        "type": FLIP_WILDS,
-        "symbols": symbols_to_flip_cloned
-    }
-    gamestate.book.add_event(event)
-
-def increase_wild_mult_event(gamestate, symbols: list):
-    symbols_cloned = deepcopy(symbols)
-    if gamestate.config.include_padding:
-        for sym in symbols_cloned:
+        for sym in updated_sticky_wilds_cloned:
             sym["row"] += 1
 
-    """Pass details on new prize symbols"""
     event = {
         "index": len(gamestate.book.events),
-        "type": INCREASE_WILD_MULT,
-        "symbols": symbols_cloned
+        "type": UPDATE_STICKY_WILDS,
+        "symbolsToFlip": symbols_to_flip_cloned,
+        "updatedStickyWilds": updated_sticky_wilds_cloned
     }
     gamestate.book.add_event(event)
+
+# def flip_wilds_event(gamestate, symbols_to_flip: list):
+#     """Pass details on new prize symbols"""
+#     # Clone symbols_to_flip so the original is not modified
+#     symbols_to_flip_cloned = deepcopy(symbols_to_flip)
+#     if gamestate.config.include_padding:
+#         for sym in symbols_to_flip_cloned:
+#             sym["row"] += 1
+
+#     event = {
+#         "index": len(gamestate.book.events),
+#         "type": FLIP_WILDS,
+#         "symbols": symbols_to_flip_cloned
+#     }
+#     gamestate.book.add_event(event)
+
+# def increase_wild_mult_event(gamestate, symbols: list):
+#     symbols_cloned = deepcopy(symbols)
+#     if gamestate.config.include_padding:
+#         for sym in symbols_cloned:
+#             sym["row"] += 1
+
+#     """Pass details on new prize symbols"""
+#     event = {
+#         "index": len(gamestate.book.events),
+#         "type": INCREASE_WILD_MULT,
+#         "symbols": symbols_cloned
+#     }
+#     gamestate.book.add_event(event)
 
 def new_sticky_event(gamestate, new_sticky_syms: list):
     """Pass details on new prize symbols"""
