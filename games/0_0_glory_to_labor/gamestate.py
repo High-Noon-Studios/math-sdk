@@ -16,7 +16,7 @@ class GameState(GameStateOverride):
             self.draw_board(emit_event=False)
 
             if (self.check_fs_condition()):
-                self.anticipation = [0, 0, 0, 0, 1]
+                self.anticipation = [0, 0, 1, 0, 1]
 
             reveal_event(self)
 
@@ -87,6 +87,10 @@ class GameState(GameStateOverride):
                 num_wilds_on_board = len(wilds_on_board)
                 marx_wild_flip_count = get_random_outcome(self.get_current_distribution_conditions()["marx_wild_flip"][num_wilds_on_board])
 
+                # if there are no wilds on the board, guarantee that marx flips at least 1 wild
+                while (len(wilds_on_board) == 0 and marx_wild_flip_count == 0):
+                    marx_wild_flip_count = get_random_outcome(self.get_current_distribution_conditions()["marx_wild_flip"][num_wilds_on_board])
+
                 symbols_to_flip = []
                 if (marx_wild_flip_count > 0):
                     symbols_to_flip = [
@@ -95,9 +99,7 @@ class GameState(GameStateOverride):
                         )}
                         for x in self.generate_new_sticky_wilds(marx_wild_flip_count)
                     ]
-                    random.shuffle(symbols_to_flip)
                     self.sticky_wilds.extend(symbols_to_flip)
-                    # flip_wilds_event(self, symbols_to_flip)
                     self.update_board_with_existing_sticky_wilds()
                     wilds_on_board = self.get_symbols_on_board("W")
 
@@ -117,11 +119,6 @@ class GameState(GameStateOverride):
                         ]
                         self.update_board_with_existing_sticky_wilds()
                         updated_sticky_wilds.append({"reel": wild["reel"], "row": wild["row"], "multiplier": self.board[wild["reel"]][wild["row"]].multiplier})
-
-                if (len(updated_sticky_wilds) > 0):
-                    random.shuffle(updated_sticky_wilds)
-                    # increase_wild_mult_event(self, updated_sticky_wilds)
-                    # new_sticky_event(self, updated_sticky_wilds)
 
                 update_sticky_wilds_event(self, symbols_to_flip, updated_sticky_wilds)
 

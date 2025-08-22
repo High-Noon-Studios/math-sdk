@@ -284,7 +284,7 @@ class GameConfig(Config):
                         conditions={
                             "reel_weights": {
                                 self.basegame_type: {"BR0": 1},
-                                self.freegame_type: {"FR0": 1},
+                                self.freegame_type: {"FR0": 49, "WCAP": 1},
                             },
                             "scatter_triggers": {3: 1},
                             "mult_values": mult_values_default,

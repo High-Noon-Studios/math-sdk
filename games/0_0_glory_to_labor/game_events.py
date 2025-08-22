@@ -99,10 +99,7 @@ def reveal_event(gamestate):
         # Determine anticipation for basegame: if there is a scatter on both reel 1 and reel 3, set anticipation to 1 on last reel, else 0
         scatter_positions = gamestate.special_syms_on_board.get("scatter", [])
         reels_with_scatter = {pos["reel"] for pos in scatter_positions}
-        if 0 in reels_with_scatter and 2 in reels_with_scatter:
-            gamestate.anticipation = [0, 0, 0, 0, 1]
-        else:
-            gamestate.anticipation = [0, 0, 0, 0, 0]
+        gamestate.anticipation = [0, 0, 1 if 0 in reels_with_scatter else 0, 0, 1 if 2 in reels_with_scatter else 0, 0]
 
     if (gamestate.gametype == "freegame"):
         marx_positions = gamestate.special_syms_on_board.get("marx", [])

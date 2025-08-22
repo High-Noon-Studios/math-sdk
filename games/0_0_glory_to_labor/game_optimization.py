@@ -1,6 +1,6 @@
 """Set conditions/parameters for optimization program program"""
 
-from constants import wincap, free_game_hr, wincap_from_base_game_rtp, wincap_from_regular_bonus_rtp, wincap_from_super_bonus_rtp
+from constants import wincap, base_game_hr, free_game_hr, wincap_from_base_game_rtp, wincap_from_regular_bonus_rtp, wincap_from_super_bonus_rtp
 
 from optimization_program.optimization_config import (
     ConstructScaling,
@@ -21,7 +21,7 @@ class OptimizationSetup:
                     "freegame": ConstructConditions(
                         rtp=0.665, hr=free_game_hr, search_conditions={"symbol": "scatter"}
                     ).return_dict(),
-                    "basegame": ConstructConditions(hr=8, rtp=0.3 - wincap_from_base_game_rtp).return_dict(),
+                    "basegame": ConstructConditions(hr=base_game_hr, rtp=0.3 - wincap_from_base_game_rtp).return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [

@@ -3,6 +3,7 @@ wincap = 10000.0
 regular_bonus_cost = 100.0
 super_bonus_cost = 200.0
 
+base_game_hr = 8 # 1 in 8 spins should return something to the player
 free_game_hr = 180 # 1 in 180 spins should trigger a free game
 wincap_from_base_game_hr = 5000000 # 1 in 5,000,000 spins should trigger a win cap
 wincap_from_base_game_rtp = wincap / wincap_from_base_game_hr
