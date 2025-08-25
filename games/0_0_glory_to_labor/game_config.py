@@ -96,7 +96,7 @@ class GameConfig(Config):
         self.include_padding = True
         self.special_symbols = {
             "marx": ["KM"],
-            "wild": ["W"],
+            "wild": ["W", "KM"],
             "scatter": ["S"],
             "multiplier": ["W"],
         }
