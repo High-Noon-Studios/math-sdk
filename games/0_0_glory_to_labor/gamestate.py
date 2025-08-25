@@ -52,7 +52,7 @@ class GameState(GameStateOverride):
                 self.anticipation = [0, 0, 0, 0, 1]
 
                 if (marx_symbols_count == 1):
-                    marx_positions.append({"reel": 0, "row": random.choice(range(self.config.num_rows[0]))})
+                    marx_positions.append({"reel": random.choice([0, 4]), "row": random.choice(range(self.config.num_rows[0]))})
                 if (marx_symbols_count == 2):
                     marx_positions.append({"reel": 0, "row": random.choice(range(self.config.num_rows[0]))})
                     marx_positions.append({"reel": 4, "row": random.choice(range(self.config.num_rows[4]))})
