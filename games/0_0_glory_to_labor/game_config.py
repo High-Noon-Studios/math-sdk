@@ -305,7 +305,8 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
-                            "scatter_triggers": { 0: 26, 1: 70, 2: 16 },
+                            # tease a bonus 1 in 45 spins
+                            "scatter_triggers": { 0: 43, 1: 1, 2: 1 },
                             "landing_marx": landing_marx,
                             "marx_wild_flip": marx_wild_flip,
                             "marx_mult_increase": marx_mult_increase,
@@ -319,7 +320,8 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
-                            "scatter_triggers": { 0: 26, 1: 70, 2: 16 },
+                            # tease a bonus 1 in 45 spins
+                            "scatter_triggers": { 0: 43, 1: 1, 2: 1 },
                             "landing_marx": landing_marx,
                             "marx_wild_flip": marx_wild_flip,
                             "marx_mult_increase": marx_mult_increase,
@@ -382,7 +384,8 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
-                            "scatter_triggers": { 0: 26, 1: 70, 2: 16 },
+                            # tease a bonus 1 in 9 spins
+                            "scatter_triggers": { 0: 7, 1: 1, 2: 1 },
                             "landing_marx": landing_marx,
                             "marx_wild_flip": marx_wild_flip,
                             "marx_mult_increase": marx_mult_increase,
@@ -396,7 +399,8 @@ class GameConfig(Config):
                             "mult_values": mult_values_default,
                             "force_wincap": False,
                             "force_freegame": False,
-                            "scatter_triggers": { 0: 26, 1: 70, 2: 16 },
+                            # tease a bonus 1 in 9 spins
+                            "scatter_triggers": { 0: 7, 1: 1, 2: 1 },
                             "landing_marx": landing_marx,
                             "marx_wild_flip": marx_wild_flip,
                             "marx_mult_increase": marx_mult_increase,
