@@ -4,7 +4,7 @@ import os
 from src.config.config import Config
 from src.config.distributions import Distribution
 from src.config.betmode import BetMode
-from constants import wincap, rtp, regular_bonus_cost, super_bonus_cost
+from constants import wincap, rtp, bonus_hunt_cost, regular_bonus_cost, super_bonus_cost
 
 class GameConfig(Config):
 
@@ -253,6 +253,83 @@ class GameConfig(Config):
             BetMode(
                 name="base",
                 cost=1.0,
+                rtp=self.rtp,
+                max_win=self.wincap,
+                auto_close_disabled=False,
+                is_feature=True,
+                is_buybonus=False,
+                distributions=[
+                    Distribution(
+                        criteria="wincap",
+                        quota=0.001,
+                        win_criteria=self.wincap,
+                        conditions={
+                            "reel_weights": {
+                                self.basegame_type: {"BR0": 1},
+                                self.freegame_type: {"WCAP": 1},
+                            },
+                            "scatter_triggers": {3: 1},
+                            "mult_values": mult_values_wcap,
+                            "landing_wilds": landing_wilds_wcap,
+                            "force_wincap": True,
+                            "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
+                        },
+                    ),
+                    Distribution(
+                        criteria="freegame",
+                        quota=0.12,
+                        conditions={
+                            "reel_weights": {
+                                self.basegame_type: {"BR0": 1},
+                                self.freegame_type: {"FR0": 49, "WCAP": 1},
+                            },
+                            "scatter_triggers": {3: 1},
+                            "mult_values": mult_values_default,
+                            "landing_wilds": landing_wilds_default,
+                            "force_wincap": False,
+                            "force_freegame": True,
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
+                        },
+                    ),
+                    Distribution(
+                        criteria="0",
+                        quota=0.45,
+                        win_criteria=0.0,
+                        conditions={
+                            "reel_weights": {self.basegame_type: {"BR0": 1}},
+                            "mult_values": mult_values_default,
+                            "force_wincap": False,
+                            "force_freegame": False,
+                            "scatter_triggers": { 0: 26, 1: 70, 2: 16 },
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
+                        },
+                    ),
+                    Distribution(
+                        criteria="basegame",
+                        quota=0.439,
+                        conditions={
+                            "reel_weights": {self.basegame_type: {"BR0": 1}},
+                            "mult_values": mult_values_default,
+                            "force_wincap": False,
+                            "force_freegame": False,
+                            "scatter_triggers": { 0: 26, 1: 70, 2: 16 },
+                            "landing_marx": landing_marx,
+                            "marx_wild_flip": marx_wild_flip,
+                            "marx_mult_increase": marx_mult_increase,
+                        },
+                    ),
+                ],
+            ),
+            BetMode(
+                name="bonus_hunt",
+                cost=bonus_hunt_cost,
                 rtp=self.rtp,
                 max_win=self.wincap,
                 auto_close_disabled=False,
