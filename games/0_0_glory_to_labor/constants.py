@@ -1,8 +1,8 @@
 rtp = 0.965
 wincap = 10000.0
 bonus_hunt_cost = 3.0
-regular_bonus_cost = 100.0
-super_bonus_cost = 200.0
+regular_bonus_cost = 50.0
+super_bonus_cost = 100.0
 
 base_game_hr = 4 # 1 in 4 spins should return something to the player
 free_game_hr = 180 # 1 in 180 spins should trigger a free game

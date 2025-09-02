@@ -70,21 +70,20 @@ class OptimizationSetup:
             },
             "regular_bonus": {
                 "conditions": {
-                    "wincap": ConstructConditions(rtp=wincap_from_regular_bonus_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
-                    "freegame": ConstructConditions(rtp=0.965 - wincap_from_regular_bonus_rtp, hr="x").return_dict(),
+                    "freegame": ConstructConditions(rtp=0.965, hr="x").return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        # {"criteria": "freegame", "scale_factor": 5.0, "win_range": (0, 20), "probability": 1.0},
-                        # {"criteria": "freegame", "scale_factor": 0.1, "win_range": (20, 500), "probability": 1.0},
-                        # {"criteria": "freegame", "scale_factor": 10.0, "win_range": (1000, 5000), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 0.5, "win_range": (10, 20), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 3.5, "win_range": (500, 1000), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 10.0, "win_range": (1000, 2000), "probability": 1.0},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
                     num_show=5000,
                     num_per_fence=10000,
-                    min_m2m=4,
-                    max_m2m=8,
+                    min_m2m=16,
+                    max_m2m=32,
                     pmb_rtp=1.0,
                     sim_trials=5000,
                     test_spins=[10, 20, 50],
@@ -94,20 +93,22 @@ class OptimizationSetup:
             },
             "super_bonus": {
                 "conditions": {
-                    "wincap": ConstructConditions(rtp=wincap_from_super_bonus_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
-                    "freegame": ConstructConditions(rtp=0.965 - wincap_from_super_bonus_rtp, hr="x").return_dict(),
+                    # "wincap": ConstructConditions(rtp=wincap_from_super_bonus_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
+                    "freegame": ConstructConditions(rtp=0.965, hr="x").return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        # {"criteria": "freegame", "scale_factor": 5.0, "win_range": (0, 20), "probability": 1.0},
-                        # {"criteria": "freegame", "scale_factor": 0.2, "win_range": (20, 500), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 5.0, "win_range": (0, 1), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 10.0, "win_range": (1, 20), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 0.2, "win_range": (20, 400), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 5.0, "win_range": (3000, 5000), "probability": 1.0},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
                     num_show=5000,
                     num_per_fence=10000,
-                    min_m2m=4,
-                    max_m2m=8,
+                    min_m2m=16,
+                    max_m2m=32,
                     pmb_rtp=1.0,
                     sim_trials=5000,
                     test_spins=[10, 20, 50],
