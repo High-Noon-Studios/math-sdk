@@ -76,7 +76,8 @@ class OptimizationSetup:
                 "scaling": ConstructScaling(
                     [
                         # {"criteria": "freegame", "scale_factor": 5.0, "win_range": (0, 20), "probability": 1.0},
-                        # {"criteria": "freegame", "scale_factor": 0.2, "win_range": (20, 500), "probability": 1.0},
+                        # {"criteria": "freegame", "scale_factor": 0.1, "win_range": (20, 500), "probability": 1.0},
+                        # {"criteria": "freegame", "scale_factor": 10.0, "win_range": (1000, 5000), "probability": 1.0},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
