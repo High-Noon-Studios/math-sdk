@@ -43,19 +43,19 @@ class OptimizationSetup:
             },
             "bonus_hunt": {
                 "conditions": {
-                    # "wincap": ConstructConditions(rtp=wincap_from_base_game_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
+                    "wincap": ConstructConditions(rtp=wincap_from_base_game_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
                     "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
                     "freegame": ConstructConditions(
-                        rtp=0.5, hr=bonus_hunt_free_game_hr, search_conditions={"symbol": "scatter"}
+                        rtp=0.8, hr=bonus_hunt_free_game_hr, search_conditions={"symbol": "scatter"}
                     ).return_dict(),
-                    "basegame": ConstructConditions(hr=base_game_hr, rtp=0.465).return_dict(),
+                    "basegame": ConstructConditions(hr=base_game_hr, rtp=0.165 - wincap_from_base_game_rtp).return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        {"criteria": "freegame", "scale_factor": 50.0, "win_range": (0, 1), "probability": 0.05},
-                        {"criteria": "freegame", "scale_factor": 0.2, "win_range": (20, 400), "probability": 1.0},
-                        {"criteria": "freegame", "scale_factor": 25.0, "win_range": (50, 500), "probability": 0.5},
-                        {"criteria": "freegame", "scale_factor": 5.0, "win_range": (500, 2000), "probability": 0.1},
+                        # {"criteria": "freegame", "scale_factor": 50.0, "win_range": (0, 1), "probability": 0.05},
+                        # {"criteria": "freegame", "scale_factor": 0.2, "win_range": (20, 400), "probability": 1.0},
+                        # {"criteria": "freegame", "scale_factor": 25.0, "win_range": (50, 500), "probability": 0.5},
+                        # {"criteria": "freegame", "scale_factor": 5.0, "win_range": (500, 2000), "probability": 0.1},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
