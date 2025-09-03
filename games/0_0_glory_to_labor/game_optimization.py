@@ -82,6 +82,8 @@ class OptimizationSetup:
                         {"criteria": "freegame", "scale_factor": 0.4, "win_range": (10, 200), "probability": 1.0},
                         {"criteria": "freegame", "scale_factor": 12.5, "win_range": (25, 250), "probability": 0.5},
                         {"criteria": "freegame", "scale_factor": 2.5, "win_range": (250, 1000), "probability": 0.1},
+                        {"criteria": "freegame", "scale_factor": 10, "win_range": (100, 200), "probability": 0.5},
+                        {"criteria": "freegame", "scale_factor": 10, "win_range": (1000, 5000), "probability": 0.5},
                         # {"criteria": "freegame", "scale_factor": 5.0, "win_range": (3000, 5000), "probability": 1.0},
                     ]
                 ).return_dict(),
@@ -108,6 +110,8 @@ class OptimizationSetup:
                         {"criteria": "freegame", "scale_factor": 0.2, "win_range": (20, 400), "probability": 1.0},
                         {"criteria": "freegame", "scale_factor": 25.0, "win_range": (50, 500), "probability": 0.5},
                         {"criteria": "freegame", "scale_factor": 5.0, "win_range": (500, 2000), "probability": 0.1},
+                        {"criteria": "freegame", "scale_factor": 0.6, "win_range": (500, 1000), "probability": 0.5},
+
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
