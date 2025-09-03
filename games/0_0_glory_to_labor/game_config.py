@@ -152,7 +152,7 @@ class GameConfig(Config):
                         criteria="basegame",
                         quota=0.439,
                         conditions={
-                            "reel_weights": {self.basegame_type: {"BR0": 1}},
+                            "reel_weights": {self.basegame_type: {"BR0": 999, "BR0_1000x": 1}},
                             "mult_values": resolve_mult_values("base", "basegame"),
                             "force_wincap": False,
                             "force_freegame": False,
@@ -231,7 +231,7 @@ class GameConfig(Config):
                         criteria="basegame",
                         quota=0.439,
                         conditions={
-                            "reel_weights": {self.basegame_type: {"BR0": 1}},
+                            "reel_weights": {self.basegame_type: {"BR0": 999, "BR0_1000x": 1}},
                             "mult_values": resolve_mult_values("bonus_hunt", "basegame"),
                             "force_wincap": False,
                             "force_freegame": False,

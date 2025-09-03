@@ -6,12 +6,12 @@ super_bonus_cost = 200.0
 
 base_game_hr = 4 # 1 in 4 spins should return something to the player
 free_game_hr = 180 # 1 in 180 spins should trigger a free game
-bonus_hunt_free_game_hr = 36 # 5x more likely to trigger a free game
+bonus_hunt_free_game_hr = free_game_hr / 5 # 5x more likely to trigger a free game
 wincap_from_base_game_hr = 5000000 # 1 in 5,000,000 spins should trigger a win cap
-wincap_from_base_game_rtp = wincap / wincap_from_base_game_hr
 wincap_from_regular_bonus_hr = 25_000 # 1 in 25,000 spins should trigger a win cap
-wincap_from_regular_bonus_rtp = (wincap / regular_bonus_cost) / wincap_from_regular_bonus_hr
 wincap_from_super_bonus_hr = 10_000 # 1 in 10,000 spins should trigger a win cap
+wincap_from_base_game_rtp = wincap / wincap_from_base_game_hr
+wincap_from_regular_bonus_rtp = (wincap / regular_bonus_cost) / wincap_from_regular_bonus_hr
 wincap_from_super_bonus_rtp = (wincap / super_bonus_cost) / wincap_from_super_bonus_hr
 
 # -----------------------------
@@ -93,6 +93,7 @@ SPECIAL_SYMBOLS = {
 
 REELS_FILENAMES = {
     "BR0": "BR0.csv",
+    "BR0_1000x": "BR0_1000x.csv",
     "FR0": "FR0.csv",
     "WCAP": "WCAP.csv",
 }
