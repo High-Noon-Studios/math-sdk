@@ -19,9 +19,9 @@ class OptimizationSetup:
                     "wincap": ConstructConditions(rtp=wincap_from_base_game_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
                     "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
                     "freegame": ConstructConditions(
-                        rtp=0.665, hr=free_game_hr, search_conditions={"symbol": "scatter"}
+                        rtp=0.5 - wincap_from_base_game_rtp, hr=free_game_hr, search_conditions={"symbol": "scatter"}
                     ).return_dict(),
-                    "basegame": ConstructConditions(hr=base_game_hr, rtp=0.3 - wincap_from_base_game_rtp).return_dict(),
+                    "basegame": ConstructConditions(hr=base_game_hr, rtp=0.465).return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
@@ -43,17 +43,19 @@ class OptimizationSetup:
             },
             "bonus_hunt": {
                 "conditions": {
-                    "wincap": ConstructConditions(rtp=wincap_from_base_game_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
+                    # "wincap": ConstructConditions(rtp=wincap_from_base_game_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
                     "0": ConstructConditions(rtp=0, av_win=0, search_conditions=0).return_dict(),
                     "freegame": ConstructConditions(
-                        rtp=0.665, hr=bonus_hunt_free_game_hr, search_conditions={"symbol": "scatter"}
+                        rtp=0.5, hr=bonus_hunt_free_game_hr, search_conditions={"symbol": "scatter"}
                     ).return_dict(),
-                    "basegame": ConstructConditions(hr=base_game_hr, rtp=0.3 - wincap_from_base_game_rtp).return_dict(),
+                    "basegame": ConstructConditions(hr=base_game_hr, rtp=0.465).return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        # {"criteria": "freegame", "scale_factor": 5.0, "win_range": (0, 0.2), "probability": 1.0},
-                        # {"criteria": "freegame", "scale_factor": 0.2, "win_range": (0.2, 5), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 50.0, "win_range": (0, 1), "probability": 0.05},
+                        {"criteria": "freegame", "scale_factor": 0.2, "win_range": (20, 400), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 25.0, "win_range": (50, 500), "probability": 0.5},
+                        {"criteria": "freegame", "scale_factor": 5.0, "win_range": (500, 2000), "probability": 0.1},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
@@ -70,13 +72,17 @@ class OptimizationSetup:
             },
             "regular_bonus": {
                 "conditions": {
-                    "freegame": ConstructConditions(rtp=0.965, hr="x").return_dict(),
+                    "wincap": ConstructConditions(rtp=wincap_from_regular_bonus_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
+                    "freegame": ConstructConditions(rtp=0.965 - wincap_from_regular_bonus_rtp, hr="x").return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        {"criteria": "freegame", "scale_factor": 0.5, "win_range": (10, 20), "probability": 1.0},
-                        {"criteria": "freegame", "scale_factor": 3.5, "win_range": (500, 1000), "probability": 1.0},
-                        {"criteria": "freegame", "scale_factor": 10.0, "win_range": (1000, 2000), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 25.0, "win_range": (0, 1), "probability": 0.05},
+                        # {"criteria": "freegame", "scale_factor": 10.0, "win_range": (1, 20), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 0.4, "win_range": (10, 200), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 12.5, "win_range": (25, 250), "probability": 0.5},
+                        {"criteria": "freegame", "scale_factor": 2.5, "win_range": (250, 1000), "probability": 0.1},
+                        # {"criteria": "freegame", "scale_factor": 5.0, "win_range": (3000, 5000), "probability": 1.0},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
@@ -93,15 +99,15 @@ class OptimizationSetup:
             },
             "super_bonus": {
                 "conditions": {
-                    # "wincap": ConstructConditions(rtp=wincap_from_super_bonus_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
-                    "freegame": ConstructConditions(rtp=0.965, hr="x").return_dict(),
+                    "wincap": ConstructConditions(rtp=wincap_from_super_bonus_rtp, av_win=wincap, search_conditions=wincap).return_dict(),
+                    "freegame": ConstructConditions(rtp=0.965 - wincap_from_super_bonus_rtp, hr="x").return_dict(),
                 },
                 "scaling": ConstructScaling(
                     [
-                        {"criteria": "freegame", "scale_factor": 5.0, "win_range": (0, 1), "probability": 1.0},
-                        {"criteria": "freegame", "scale_factor": 10.0, "win_range": (1, 20), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 50.0, "win_range": (0, 1), "probability": 0.05},
                         {"criteria": "freegame", "scale_factor": 0.2, "win_range": (20, 400), "probability": 1.0},
-                        {"criteria": "freegame", "scale_factor": 5.0, "win_range": (3000, 5000), "probability": 1.0},
+                        {"criteria": "freegame", "scale_factor": 25.0, "win_range": (50, 500), "probability": 0.5},
+                        {"criteria": "freegame", "scale_factor": 5.0, "win_range": (500, 2000), "probability": 0.1},
                     ]
                 ).return_dict(),
                 "parameters": ConstructParameters(
