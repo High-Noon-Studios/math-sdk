@@ -23,9 +23,9 @@ if __name__ == "__main__":
 
     num_sim_args = {
         # "base": int(NUM_SIMS),
-        "bonus_hunt": int(NUM_SIMS),
+        # "bonus_hunt": int(NUM_SIMS),
         # "regular_bonus": int(NUM_SIMS),
-        # "super_bonus": int(NUM_SIMS),
+        "super_bonus": int(NUM_SIMS),
     }
 
     run_conditions = {
