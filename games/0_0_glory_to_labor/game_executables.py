@@ -4,6 +4,29 @@ import random
 from src.calculations.statistics import get_random_outcome
 
 class GameExecutables(GameCalculations):
+    def draw_board(self, emit_event: bool = True, trigger_symbol: str = "scatter") -> None:
+        """Instead of retrying to draw a board, force the initial revel to have a
+        specific number of scatters, if the betmode criteria specifies this."""
+        if (
+            self.get_current_distribution_conditions()["force_freegame"]
+            and self.gametype == self.config.basegame_type
+        ):
+            num_scatters = get_random_outcome(self.get_current_distribution_conditions()["scatter_triggers"])
+            self.force_special_board(trigger_symbol, num_scatters)
+        elif (
+            not (self.get_current_distribution_conditions()["force_freegame"])
+            and self.gametype == self.config.basegame_type
+        ):
+            self.create_board_reelstrips()
+            # allows us to control the "tease rate" for scatters in the base game
+            num_scatters = get_random_outcome(self.get_current_distribution_conditions()["scatter_triggers"])
+            while self.count_special_symbols(trigger_symbol) != num_scatters:
+                self.create_board_reelstrips()
+        else:
+            self.create_board_reelstrips()
+        if emit_event:
+            reveal_event(self)
+
     def evaluate_lines_board(self):
         """Populate win-data, record wins, transmit events."""
         self.win_data = Lines.get_lines(self.board, self.config, global_multiplier=self.global_multiplier)

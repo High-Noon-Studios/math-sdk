@@ -4,7 +4,7 @@ bonus_hunt_cost = 3.0
 regular_bonus_cost = 100.0
 super_bonus_cost = 200.0
 
-base_game_hr = 4 # 1 in 4 spins should return something to the player
+base_game_hr = 6 # 1 in 6 spins should return something to the player
 free_game_hr = 180 # 1 in 180 spins should trigger a free game
 bonus_hunt_free_game_hr = free_game_hr / 5 # 5x more likely to trigger a free game
 wincap_from_base_game_hr = 5000000 # 1 in 5,000,000 spins should trigger a win cap
