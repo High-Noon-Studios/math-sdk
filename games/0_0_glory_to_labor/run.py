@@ -22,8 +22,8 @@ if __name__ == "__main__":
     profiling = False
 
     num_sim_args = {
-        "base": int(NUM_SIMS),
-        # "bonus_hunt": int(NUM_SIMS),
+        # "base": int(NUM_SIMS),
+        "bonus_hunt": int(NUM_SIMS),
         # "regular_bonus": int(NUM_SIMS),
         # "super_bonus": int(NUM_SIMS),
     }
